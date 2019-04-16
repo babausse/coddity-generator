@@ -2,19 +2,15 @@ def generate_champions
   championId = 1
   champions = []
 
-  while true
-    begin
-      championName = Faker::Games::LeagueOfLegends.unique.champion
-      description = Faker::Lorem.sentences(rand(1..3)).join(' ')
-      champions << {
-        championId: championId,
-        name: championName,
-        description: description
-      }
-      championId = championId + 1
-    rescue Faker::UniqueGenerator::RetryLimitExceeded => exception
-      break;
-    end
+  50.times do
+    championName = Faker::Games::LeagueOfLegends.unique.champion
+    description = Faker::Lorem.sentences(rand(1..3)).join(' ')
+    champions << {
+      championId: championId,
+      name: championName,
+      description: description
+    }
+    championId = championId + 1
   end
 
   # Enrich the champions with a rank from 1 to #length
