@@ -1,23 +1,11 @@
 def generate_champions
-  championId = 1
-  champions = []
-
-  50.times do
-    championName = Faker::Games::LeagueOfLegends.unique.champion
-    description = Faker::Lorem.sentences(rand(1..3)).join(' ')
-    champions << {
-      championId: championId,
-      name: championName,
-      description: description
+  Faker::Number.unique.clear
+  return Array.new(30).map.with_index do |champion, index|
+    {
+      championId: index + 1,
+      name: Faker::Games::LeagueOfLegends.unique.champion,
+      description: Faker::Lorem.sentences(rand(1..3)).join(' '),
+      rank: Faker::Number.unique.between(1, 30)
     }
-    championId = championId + 1
   end
-
-  # Enrich the champions with a rank from 1 to #length
-  max = champions.count
-  champions.each do |champion|
-    champion[:rank] = Faker::Number.unique.between(1, max)
-  end
-
-  return champions
 end

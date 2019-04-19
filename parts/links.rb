@@ -1,15 +1,12 @@
 def generate_links(champions, players)
-  links = []
-  championIds = champions.map { |c| c[:championId] }
-  players.each do |player|
-    selected = []
-    3.times do
-      selected << (championIds - selected).sample
-      links << {
-        championId: selected.last,
+  deep_links = players.map do |player|
+    Faker::Number.unique.clear
+    Array.new(3).map do |link|
+      {
+        championId: Faker::Number.unique.between(1, 30),
         playerId: player[:playerId]
       }
     end
   end
-  return links
+  return deep_links.flatten
 end

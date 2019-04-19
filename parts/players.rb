@@ -1,16 +1,9 @@
-def generate_players
-  playerId = 1
-  players = []
-
-  10.times do
-    playerName = Faker::TvShows::BreakingBad.unique.character
-    players << {
-      playerId: playerId,
-      name: playerName,
-      city: Faker::Address.city
+def generate_players(cities)
+  return Array.new(30).map.with_index do |player, index|
+    {
+      playerId: index + 1,
+      name: Faker::TvShows::BreakingBad.unique.character,
+      city: cities.sample
     }
-    playerId = playerId + 1
   end
-  
-  return players
 end
